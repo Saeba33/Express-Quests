@@ -15,7 +15,7 @@ describe("GET /api/users", () => {
 });
 describe("GET /api/users/:id", () => {
   it("should return one user", async () => {
-    const response = await request(app).get("/api/users/1");
+    const response = await request(app).get("/api/users/53");
 
     expect(response.headers["content-type"]).toMatch(/json/);
 
@@ -155,6 +155,38 @@ describe("PUT /api/users/:id", () => {
 
     const response = await request(app).put("/api/users/0").send(newUser);
 
+    expect(response.status).toEqual(404);
+  });
+});
+
+describe("DELETE /api/users/:id", () => {
+  it("should delete the user", async () => {
+    const newUser = {
+      firstname: "toto",
+      lastname: "le best",
+      email: `${crypto.randomUUID()}@wild.co`,
+      city: "wild",
+      language: "js",
+    };
+
+    const [resultInsert] = await database.query(
+      "INSERT INTO users(firstname, lastname, email, city, language) VALUES (?, ?, ?, ?, ?)",
+      [
+        newUser.firstname,
+        newUser.lastname,
+        newUser.email,
+        newUser.city,
+        newUser.language,
+      ]
+    );
+    const id = resultInsert.insertId;
+
+    const response = await request(app).delete(`/api/users/${id}`);
+    expect(response.status).toEqual(204);
+  });
+
+  it("should return no user", async () => {
+    const response = await request(app).get("/api/users/0");
     expect(response.status).toEqual(404);
   });
 });
