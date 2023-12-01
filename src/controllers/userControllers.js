@@ -33,7 +33,6 @@ const getUsers = (req, res) => {
     })
 
     .catch((err) => {
-      console.error(err);
       res.status(500).send("Error retrieving data from database");
     });
 };
@@ -51,7 +50,6 @@ const getUserById = (req, res) => {
       }
     })
     .catch((err) => {
-      console.error(err);
       res.sendStatus(500);
     });
 };
@@ -68,7 +66,6 @@ const postUser = (req, res) => {
       res.status(201).send({ id: result.insertId });
     })
     .catch((err) => {
-      console.error(err);
       res.sendStatus(500);
     });
 };
@@ -90,7 +87,6 @@ const updateUser = (req, res) => {
       }
     })
     .catch((err) => {
-      console.error(err);
       res.sendStatus(500);
     });
 };

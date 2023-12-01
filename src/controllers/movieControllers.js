@@ -59,7 +59,6 @@ const getMovies = (req, res) => {
       res.json(movies);
     })
     .catch((err) => {
-      console.error(err);
       res.status(500).send("Error retrieving data from database");
     });
 };
@@ -77,7 +76,6 @@ const getMovieById = (req, res) => {
       }
     })
     .catch((err) => {
-      console.error(err);
       res.sendStatus(500);
     });
 };
@@ -94,7 +92,6 @@ const postMovie = (req, res) => {
       res.status(201).send({ id: result.insertId });
     })
     .catch((err) => {
-      console.error(err);
       res.sendStatus(500);
     });
 };
@@ -116,7 +113,6 @@ const updateMovie = (req, res) => {
       }
     })
     .catch((err) => {
-      console.error(err);
       res.sendStatus(500);
     });
 };
